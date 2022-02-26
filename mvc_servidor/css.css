@@ -1,0 +1,118 @@
+body{
+    width:80%;
+    margin:0px auto;    
+    margin-top: 20px;
+}
+h2{
+    width:100%;
+    display: block;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 251, 251);
+    margin-bottom: 50px;
+    border-radius: 40px;
+    padding: 10px;
+}
+.container{
+    width: 80%;
+    margin: auto;    
+    text-align: center;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+ul{
+    list-style: none;
+}
+#ciudades {
+    border-bottom: 1px black solid;
+    padding: 5px;
+    margin: 5px;    
+    color: black;
+}
+#ciudades:hover {
+    font-weight: 600;
+    border-bottom: 2px black solid;
+}
+.contgrupo{     
+    float: left;
+    width: 350px;
+    margin:0px auto;  
+}
+.textogrupo{
+    font-size: 1.5rem;
+    font-weight: 900;
+}
+.controtulo{
+    width: 100%;
+    margin:0px auto; 
+    font-size: 1.1rem;  
+}
+.contdisfruta, p{
+    margin-top: 20px;
+    clear: both;
+}
+p{
+    font-size: xx-large;
+    font-weight: 600;
+    margin-bottom: 50px;
+}
+#imgconcierto{
+    width: 100%;
+}
+#imggrupo{
+    width: 100%;
+}
+form{
+    text-align: center;
+}
+table{
+    margin: 0 auto;
+    padding: 10px;
+    text-align: center;
+    border-spacing: 5px;
+}
+th {
+    background-color: black;color: white;
+    font-size: 1.3em; 
+    padding: 5px;
+}
+td{
+    padding: 20px;
+}
+th, td {
+    border-bottom: 1px solid;
+    border-right: 1px solid ;
+}
+th {
+    width: 25%;
+}
+input{
+    margin-top: 5px;
+    width:  200px;    
+    text-align: center;
+}
+input:hover{
+    border: 2px black solid;
+}
+
+.rojo{
+    color: red;
+}
+button { 
+    border: 1px black solid; 
+    background-color: rgb(255, 255, 255); 
+    margin: 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 40px;
+    padding: 10px;
+} 
+button:hover { 
+    border: 1px black solid; 
+    color: white;
+    background-color: rgb(0, 0, 0); 
+    margin: 20px;
+    border-radius: 30px;
+} 
+
