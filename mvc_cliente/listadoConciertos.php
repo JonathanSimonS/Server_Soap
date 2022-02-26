@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../mvc_servidor/vista/css/css.css">
+    <link rel="stylesheet" href="../mvc_servidor/vista/css/css.css?2.0">
     <title>Listado de Conciertos</title>
 </head>
 <body>
@@ -39,7 +39,7 @@
                     echo '</ul></div>'; 
                     echo '<p>'.$c['fechayhora'].'</p>';
                 }
-                echo '<div class="contdisfruta"><h2>Disfruta de otros conciertos en...</h2>';
+                echo '<div class="contdisfruta"><h3>Disfruta de otros conciertos en...</h3>';
         
                 $ciudades = $cliente->getCiudades();
                 echo '<ul>';
