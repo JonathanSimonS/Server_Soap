@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="../css/css.css">
     <title>Insertar Concierto</title>
 </head>
 <body>
@@ -13,19 +13,9 @@
 
        $dF = array();
        // comprobamos que la variable ha sido inicializada y no está vacía
-       if(isset($_POST) && !empty($_POST)){
+       if(empty($_POST)){
 
-            // creo el cliente SOAP            
-            $cliente = new SoapClient(null, array(
-                'location' => "http://localhost/mvcJonathan/mvc_servidor/server.php",
-                'uri'      => "http://localhost/mvcJonathan/mvc_servidor",
-                'trace'    => 1 ));
-
-            $dF = $cliente->insertarSOAP($_POST);
-
-       }
-       // si la variable POST está vacía, le damos un valor vacío a los valores del array para evitar errores cuando entremos la primera vez
-       else{
+        // para evitar los errores en los campos, iniciamos los valores
            $dF['valido']=false;
            $dF['errores']=array();
            $dF['valores']=array();
@@ -35,19 +25,11 @@
            $dF['valores']['imagen']='';
        }
 
-       // comprobamos si los datos se han insertado bien o no, 
-       if(!empty($dF) && $dF['valido']==true){
-            // aqui redireccionar con header para evitar el reenvío del formulario
-            header("Status: 301 Moved Permanently");
-            header("Location: confirmacion.html");
-
-       } else {
-
        ?>
 
         <!-- CREACIÓN DE FORMULARIO -->
-        <!-- guardamos los valores del formulario mediante la variable POST -->
-        <form action="insertarConcierto.php" method=post>
+        <!-- guardamos los valores del formulario mediante la variable POST y redirigimos al index al enviarlo-->
+        <form action="../../index.php" method=post>
                 <fieldset>
                     <legend><h2>INSERTAR CONCIERTO</h2></legend>
                     <label>Título</label><br/>
@@ -84,10 +66,6 @@
                 </fieldset>
             </form>
                  
-       <?php
-       }
-       ?>
-       
        </div> 
 </body>
 </html>

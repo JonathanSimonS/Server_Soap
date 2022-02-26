@@ -12,14 +12,14 @@ class conciertosControlador{
     /**
     * Inserta un concierto en la base de datos
     * 
-    * @param array $dt datos de la variable POST
-    * @return array datos insertados
+    * @param array datos de la variable POST
     */
-    static function insertarSOAP($dt){
+    static function insertar($dt){
         $modelo = new conciertoModelo();    // instancio la clase, con el array inicializado
         $modelo->setDatos($dt);             // se asignan los datos
         $modelo->insertar();                // se insertan los datos
-        return $modelo->getDatos();         // los devuelvo
+
+        require_once("vista/conciertos/insertarConcierto.php");
     }    
 
     /**
