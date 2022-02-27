@@ -4,7 +4,7 @@ require_once("bd/bd.php");
 require_once("controlador/conciertosControlador.php");
 
 try {
-    
+    // Documento de descripción obtenid en el servicio
     // $server = new SoapServer("http://localhost/mvcJonathan/mvc_servidor/servicio.wsdl");
    
     $server = new SoapServer(

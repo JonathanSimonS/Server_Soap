@@ -27,7 +27,7 @@
             }
 
             // muestro los conciertos si la variable no está vacía
-            // también muestro las ciudades donde hay concierto con su h2
+            // también muestro las ciudades donde hay concierto con su h3
             if(!empty($conciertos)){
                 foreach($conciertos as $c){
                     echo '<div class="contgrupo"><img id="imggrupo" src="'.$c['imagen'].'" alt="Imagen proximamente" ></div>';
@@ -37,7 +37,12 @@
                         echo '<li><strong>CIUDAD</strong></li>';
                         echo '<li class="textogrupo">'.$c['ciudad'].'</li>';
                     echo '</ul></div>'; 
-                    echo '<p>'.$c['fechayhora'].'</p>';
+
+                    // formateo la fecha para mostrarla en un formato correcto
+                    $fecha = $c['fechayhora'];
+                    $fechaFormateada= date("d/m/Y H:i", strtotime($fecha));
+
+                    echo '<p>'.$fechaFormateada.'</p>';
                 }
                 echo '<div class="contdisfruta"><h3>Disfruta de otros conciertos en...</h3>';
         
@@ -45,7 +50,7 @@
                 echo '<ul>';
                 foreach($ciudades as $ci){      // recorro el array ciudades y asigno la ciudad al GET mediante el enlace
                     echo '<tr>';
-                        echo '<a href="listadoConciertos.php?ciudad='.$ci['ciudad'].'"><li id="ciudades" >'.$ci['ciudad'].'</li></a>';
+                        echo '<a href="index.php?ciudad='.$ci['ciudad'].'"><li id="ciudades" >'.$ci['ciudad'].'</li></a>';
                     echo '</tr>';
                 }
                 echo '</ul></div>'; 

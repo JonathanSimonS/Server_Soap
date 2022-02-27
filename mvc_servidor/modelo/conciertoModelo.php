@@ -41,31 +41,29 @@ class conciertoModelo extends bd{
     }
 
     public function insertar(){
+        // validamos para comprobar si ha habido errores
         $this->validar();
-
+        // si no ha habido errores, se ejecuta la consulta
         if($this->datos['valido']==true){
             $consulta = $this->conexion->prepare("INSERT INTO conciertos (id, titulo, fechayhora, ciudad, imagen) VALUES (:i, :t, :f, :c, :im)");
             $id = $this->generarUID();
             $consulta->bindParam(':i', $id);
+            // asignamos los valores previamente asignados en el método setData
             $consulta->bindParam(':t', $this->datos['valores']['titulo']);
-
-            // establezco el formato de la fecha
-            $fecha = $this->datos['valores']['fechayhora'];
-            $fechaFormateada = date("d/m/Y H:i", strtotime($fecha));
-
-            $consulta->bindParam(':f', $fechaFormateada);
+            $consulta->bindParam(':f', $this->datos['valores']['fechayhora']);
             $consulta->bindParam(':c', $this->datos['valores']['ciudad']);
             $consulta->bindParam(':im', $this->datos['valores']['imagen']);
             $consulta->execute();
             $consulta->closeCursor();
             $consulta = null;
-        }
+        } 
     }
         
     private function validar(){
         // almaceno los errores que pudiera haber en el array creado en el constructor
         $this->errores = array();
 
+        // si alguna variable está vacía, la validación será incorrecta
         if(empty($this->datos['valores']['titulo'])){
             $this->datos['valido'] = false;
             $this->datos['errores']['titulo']='El campo no puede estar vacío.';
@@ -74,7 +72,6 @@ class conciertoModelo extends bd{
             $this->datos['valido'] = false;
             $this->datos['errores']['fechayhora']='El campo no puede estar vacío.';
         }
-        
         if(empty($this->datos['valores']['ciudad'])){
             $this->datos['valido'] = false;
             $this->datos['errores']['ciudad']='El campo no puede estar vacío.';
@@ -88,26 +85,27 @@ class conciertoModelo extends bd{
     public function getConciertos($ciudad){  
         // compruebo que el paŕametro no esté vacío, en el caso de que lo esté devuelvo un concierto al azar
         if (empty($ciudad)) {
-            $consulta = $this->conexion->prepare("SELECT * FROM conciertos  ORDER BY RAND() LIMIT 1"); // devuelvo 1 fila al azar
+            // con curdate() indico que la fecha debe ser mayor a la actual
+            $consulta = $this->conexion->prepare("SELECT * FROM conciertos  WHERE fechayhora > curdate() ORDER BY RAND() LIMIT 1"); // devuelvo 1 fila al azar
         } else {
-            $consulta = $this->conexion->prepare("SELECT * FROM conciertos WHERE ciudad=:c ORDER BY RAND() LIMIT 1");
+            $consulta = $this->conexion->prepare("SELECT * FROM conciertos WHERE ciudad=:c AND fechayhora > curdate() ORDER BY RAND() LIMIT 1");
             $consulta->bindParam(':c', $ciudad);
         }
 
         $consulta->execute();
-        $this->datos = $consulta->fetchAll();
+        $this->datos = $consulta->fetchAll();  // asigno todos los datos de la consulta a la variable para devolverlos
         $consulta->closeCursor();
         $consulta = null;
         return $this->datos;
     } 
 
-    public function getCiudades(){    // DISTINCT para que no me devuelva ciudades duplicadas
-        $consulta = $this->conexion->prepare("SELECT DISTINCT ciudad FROM conciertos ORDER BY ciudad");
+    public function getCiudades(){    // DISTINCT para que no me devuelva ciudades duplicadas, y valido nuevamente que la fecha no sea pasada
+        $consulta = $this->conexion->prepare("SELECT DISTINCT ciudad FROM conciertos WHERE fechayhora > curdate() ORDER BY ciudad");
         $consulta->execute();
-        $this->datos = $consulta->fetchAll();
+        $this->datos = $consulta->fetchAll(); // asigno todos los datos de la consulta a la variable para devolverlos
         $consulta->closeCursor();
         $consulta = null;
-        return $this->datos;        // devuelvo todas las ciudades
+        return $this->datos;        // devuelvo todas las ciudades en las que haya un concierto a celebrarse
     } 
 
     // Método para generar el UID automáticamente
